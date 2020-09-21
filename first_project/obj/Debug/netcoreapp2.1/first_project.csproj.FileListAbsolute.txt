@@ -1,0 +1,11 @@
+C:\Users\lesha\source\repos\first_project\first_project\bin\Debug\netcoreapp2.1\first_project.deps.json
+C:\Users\lesha\source\repos\first_project\first_project\bin\Debug\netcoreapp2.1\first_project.runtimeconfig.json
+C:\Users\lesha\source\repos\first_project\first_project\bin\Debug\netcoreapp2.1\first_project.runtimeconfig.dev.json
+C:\Users\lesha\source\repos\first_project\first_project\bin\Debug\netcoreapp2.1\first_project.dll
+C:\Users\lesha\source\repos\first_project\first_project\bin\Debug\netcoreapp2.1\first_project.pdb
+C:\Users\lesha\source\repos\first_project\first_project\obj\Debug\netcoreapp2.1\first_project.csprojAssemblyReference.cache
+C:\Users\lesha\source\repos\first_project\first_project\obj\Debug\netcoreapp2.1\first_project.csproj.CoreCompileInputs.cache
+C:\Users\lesha\source\repos\first_project\first_project\obj\Debug\netcoreapp2.1\first_project.AssemblyInfoInputs.cache
+C:\Users\lesha\source\repos\first_project\first_project\obj\Debug\netcoreapp2.1\first_project.AssemblyInfo.cs
+C:\Users\lesha\source\repos\first_project\first_project\obj\Debug\netcoreapp2.1\first_project.dll
+C:\Users\lesha\source\repos\first_project\first_project\obj\Debug\netcoreapp2.1\first_project.pdb
