@@ -9,11 +9,10 @@ namespace first_project
         {
             char ch0 = str[0], ch;
             string begin_str, total_str = null;
-
             ch0 = char.ToUpper(ch0);
             str = str.Remove(0, 1);
             str = ch0 + str;
-
+       
             for ( int i = 0; i < str.Length; i++ )
             {
 
@@ -48,7 +47,7 @@ namespace first_project
             total_str += str;
             Console.WriteLine($"{total_str} - converted to PascalCase");
 
-        }
+        }//Пофиксил баг
 
         private static void CamelCase(string str)
          {
@@ -58,10 +57,40 @@ namespace first_project
 
             ch0 = char.ToLower(ch0);
             str = str.Remove(0, 1);
-            str = ch0 + str;
+            int j = 0;
+
+            while ((Convert.ToInt16(str[j]) >= 65 && Convert.ToInt16(str[j]) <= 90))
+            {
+
+                if ((Convert.ToInt16(str[j + 1]) >= 65 && Convert.ToInt16(str[j + 1]) <= 90))
+                {
+                    ch = str[j];
+                    begin_str = str.Substring(0, j);
+                    str = str.Remove(j, 1);
+                    //str = str.Substring(j + 1);
+                    ch = char.ToLower(ch);
+                    total_str = total_str + begin_str + ch;
+                    
+                    
+                }
+
+                else
+                {
+                    ch = str[j];
+                    begin_str = str.Substring(0, j);
+                    str = str.Remove(j, 1);
+                   // str = str.Substring(j + 1);
+                    ch = char.ToUpper(ch);
+                    total_str = total_str + begin_str + ch;
+                    
+                }
+
+            }
+
 
             for (int i = 0; i < str.Length; i++)
             {
+
 
                 if (str[i] == '-')
                 {
@@ -89,130 +118,160 @@ namespace first_project
 
             }
 
-            total_str += str;
+            total_str = ch0 + total_str + str;
             Console.WriteLine($"{total_str} - converted to camelCase");
 
-        }
+        }//Пофиксил 
 
         private static void KebabCase(string str)
         {
             char ch0 = str[0], ch;
-            string begin_str, total_str = null;
+            string total_str = null;
+
+            int i = 0;
+            int j = 1;//Для запоминания индекса элемента '-'
 
             ch0 = char.ToLower(ch0);
+            total_str += ch0;
             str = str.Remove(0, 1);
-            str = ch0 + str;
 
-            for (int i = 1; i < str.Length; i++)
+
+            while (str.Length > 2)
             {
 
                 if (Convert.ToInt16(str[i]) >= 65 && Convert.ToInt16(str[i]) <= 90)
                 {
 
-                    if ((Convert.ToInt16(str[i + 1]) >= 65 && Convert.ToInt16(str[i + 1]) <= 90))
+                    while (Convert.ToInt16(str[i]) >= 65 && Convert.ToInt16(str[i]) <= 90)
                     {
-                        if (i != 1)
+
+                        if (str.Length < 2)
                         {
-                            ch = char.ToLower(str[i]);
-                            begin_str = str.Substring(0, i);
-                            str = str.Substring(i + 1);
-                            i = 0;
-                            total_str = total_str + begin_str + '-' + ch;
+
+                            break;
+
                         }
 
-                        while (Convert.ToInt16(str[i]) >= 65 && Convert.ToInt16(str[i]) <= 90)
+                        if (Convert.ToInt16(str[i + 1]) > 90)
                         {
-                            if (str.Length > 1 && Convert.ToInt16(str[i + 1]) > 90)
+
+                            if (total_str != null && total_str[j - 1] == '-')
                             {
+
                                 ch = char.ToLower(str[i]);
-                                begin_str = str.Substring(0, i);
-                                str = str.Substring(i + 1);
-                                total_str = total_str + ch + "-";
+                                total_str = total_str + ch;
+
+                                str = str.Remove(i, 1);
+                                i = 0;
+                                break;
+
                             }
+
                             else
                             {
+
                                 ch = char.ToLower(str[i]);
-                                begin_str = str.Substring(0, i);
-                                str = str.Substring(i + 1);
-                                i = -1;
-                                total_str = total_str + begin_str + ch;
-                            }
-                            if (str.Length == 0)
-                            {
+                                total_str = total_str + '-' + ch;
+
+                                str = str.Remove(i, 1);
+                                i = 0;
                                 break;
+
                             }
-                            else i++;
 
                         }
 
+                        else
+                        {
+
+                            ch = char.ToLower(str[i]);
+                            str = str.Remove(i, 1);
+                            total_str = total_str + ch;
+                            j = 1;
+
+                        }
                     }
-
-                    else
-                    {
-                        ch = char.ToLower(str[i]);
-                        begin_str = str.Substring(0, i);
-                        str = str.Substring(i + 1);
-                        i = 0;
-
-                        total_str = total_str + begin_str + '-' + ch;
-                    }
-
                 }
 
                 else if (str[i] == '_')
                 {
 
-                    str.Replace('_', '-');
+                    str = str.Replace('_', '-');
+                    break;
 
                 }
-              
+
+                else
+                {
+
+                    if (Convert.ToInt16(str[i + 1]) >= 65 && Convert.ToInt16(str[i + 1]) <= 90)
+                    {
+
+                        ch = str[i];
+                        str = str.Remove(i, 1);
+                        total_str = total_str + ch + '-';
+                        j = total_str.Length;
+
+                    }
+
+                    else
+                    {
+
+                        ch = str[i];
+                        str = str.Remove(i, 1);
+                        total_str = total_str + ch;
+
+                    }
+                }
             }
 
-            total_str = total_str + str;
-            Console.WriteLine($"{total_str} - converted to kebab-casse");
-
-        }
+                str = str.ToLower();
+                Console.WriteLine($"{total_str + str} - konverted to kebab-case");
+          
+    }
 
         private static void SnakeCase(string str)
         {
 
             char ch0 = str[0], ch;
-            string begin_str, total_str = null;
+            string total_str = null;
+
+            int i = 0;
+            int j = 1;//Для запоминания индекса элемента '-'
 
             ch0 = char.ToLower(ch0);
+            total_str += ch0;
             str = str.Remove(0, 1);
-            str = ch0 + str;
 
-            for (int i = 1; i < str.Length; i++)
+
+            while (str.Length > 2)
             {
 
                 if (Convert.ToInt16(str[i]) >= 65 && Convert.ToInt16(str[i]) <= 90)
                 {
 
-                    if ((Convert.ToInt16(str[i + 1]) >= 65 && Convert.ToInt16(str[i + 1]) <= 90))
+                    while (Convert.ToInt16(str[i]) >= 65 && Convert.ToInt16(str[i]) <= 90)
                     {
 
-                        if (i != 1)
+                        if (str.Length < 2)
                         {
 
-                            ch = char.ToLower(str[i]);
-                            begin_str = str.Substring(0, i);
-                            str = str.Substring(i + 1);
-                            i = 0;
-                            total_str = total_str + begin_str + '_' + ch;
+                            break;
 
                         }
 
-                        while (Convert.ToInt16(str[i]) >= 65 && Convert.ToInt16(str[i]) <= 90)
+                        if (Convert.ToInt16(str[i + 1]) > 90)
                         {
 
-                            if (str.Length > 1 && Convert.ToInt16(str[i + 1]) > 90)
+                            if (total_str != null && total_str[j - 1] == '_')
                             {
 
                                 ch = char.ToLower(str[i]);
-                                begin_str = str.Substring(0, i);
-                                str = str.Substring(i + 1);
-                                total_str = total_str + ch + "_";
+                                total_str = total_str + ch;
+
+                                str = str.Remove(i, 1);
+                                i = 0;
+                                break;
 
                             }
 
@@ -220,50 +279,61 @@ namespace first_project
                             {
 
                                 ch = char.ToLower(str[i]);
-                                begin_str = str.Substring(0, i);
-                                str = str.Substring(i + 1);
-                                i = -1;
-                                total_str = total_str + begin_str + ch;
+                                total_str = total_str + '_' + ch;
 
-                            }
-
-                            if (str.Length == 0)
-                            {
+                                str = str.Remove(i, 1);
+                                i = 0;
                                 break;
-                            }
 
-                            else i++;
+                            }
+                        }
+
+                        else
+                        {
+
+                            ch = char.ToLower(str[i]);
+                            str = str.Remove(i, 1);
+                            total_str = total_str + ch;
+                            j = 1;
 
                         }
+                    }
+                }
+
+                else if (str[i] == '-')
+                {
+
+                    str = str.Replace('-', '_');
+                    break;
+
+                }
+
+                else
+                {
+
+                    if (Convert.ToInt16(str[i + 1]) >= 65 && Convert.ToInt16(str[i + 1]) <= 90)
+                    {
+
+                        ch = str[i];
+                        str = str.Remove(i, 1);
+                        total_str = total_str + ch + '_';
+                        j = total_str.Length;
 
                     }
 
                     else
                     {
 
-                        ch = char.ToLower(str[i]);
-                        begin_str = str.Substring(0, i);
-                        str = str.Substring(i + 1);
-                        i = 0;
-
-                        total_str = total_str + begin_str + '_' + ch;
+                        ch = str[i];
+                        str = str.Remove(i, 1);
+                        total_str = total_str + ch;
 
                     }
-
                 }
-
-                else if (str[i] == '-')
-                {
-
-                    str.Replace('-', '_');
-
-                }
-
-
             }
-            total_str = total_str + str;
-            Console.WriteLine($"{total_str} - converted to snake-case");
 
+            str = str.ToLower();
+            Console.WriteLine($"{total_str + str} - konverted to snake_case");
 
         }
 
