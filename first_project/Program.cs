@@ -47,7 +47,7 @@ namespace first_project
             total_str += str;
             Console.WriteLine($"{total_str} - converted to PascalCase");
 
-        }//Пофиксил баг
+        }
 
         private static void CamelCase(string str)
          {
@@ -87,6 +87,8 @@ namespace first_project
 
             }
 
+            begin_str = null;
+            string check_str = null;
 
             for (int i = 0; i < str.Length; i++)
             {
@@ -119,9 +121,56 @@ namespace first_project
             }
 
             total_str = ch0 + total_str + str;
-            Console.WriteLine($"{total_str} - converted to camelCase");
 
-        }//Пофиксил 
+            for (int i = 0; i < total_str.Length; i++)
+            {
+
+                if (Convert.ToInt16(total_str[i]) >= 65 && Convert.ToInt16(total_str[i]) <= 90)
+                {
+
+                    while (Convert.ToInt16(total_str[i + 1]) >= 65 && Convert.ToInt16(total_str[i + 1]) <= 90)
+                    {
+
+                        if (begin_str == null)
+                        {
+
+                            begin_str = total_str.Substring(0, i+1);
+                            total_str = total_str.Remove(0, i+1);
+                            i = 0;
+
+                        }
+
+                        else
+                        {
+
+                            ch = char.ToLower(total_str[i]);
+                            begin_str += ch;
+                            total_str = total_str.Remove(0, 1);
+                            i = 0;
+
+                        }
+                        
+                    }
+
+                    check_str += begin_str;
+                    begin_str = null;
+
+                }
+
+            }
+
+            check_str += total_str;
+
+            if (begin_str == null)
+            {
+
+                Console.WriteLine($"{check_str} - converted to camelCase");
+
+            }
+
+            else Console.WriteLine($"{total_str} - converted to camelCase");
+        
+        }
 
         private static void KebabCase(string str)
         {
@@ -226,7 +275,7 @@ namespace first_project
             }
 
                 str = str.ToLower();
-                Console.WriteLine($"{total_str + str} - konverted to kebab-case");
+                Console.WriteLine($"{total_str + str} - converted to kebab-case");
           
     }
 
@@ -333,7 +382,7 @@ namespace first_project
             }
 
             str = str.ToLower();
-            Console.WriteLine($"{total_str + str} - konverted to snake_case");
+            Console.WriteLine($"{total_str + str} - converted to snake_case");
 
         }
 
@@ -343,6 +392,7 @@ namespace first_project
             int dash = 0;//Для подсчёта тире
             int under_score = 0;//Для подсчета нижних подчеркиваний
             Console.WriteLine("Hello");
+
 //------------------------
 
           if (Convert.ToInt16(str[0]) >=65 && Convert.ToInt16(str[0])<=90)//Check PascalCase or unknow
