@@ -89,6 +89,7 @@ namespace first_project
 
             begin_str = null;
             string check_str = null;
+            
 
             for (int i = 0; i < str.Length; i++)
             {
@@ -128,7 +129,7 @@ namespace first_project
                 if (Convert.ToInt16(total_str[i]) >= 65 && Convert.ToInt16(total_str[i]) <= 90)
                 {
 
-                    while (Convert.ToInt16(total_str[i + 1]) >= 65 && Convert.ToInt16(total_str[i + 1]) <= 90)
+                    while (total_str.Length > 2 && Convert.ToInt16(total_str[i + 1]) >= 65 && Convert.ToInt16(total_str[i + 1]) <= 90)
                     {
 
                         if (begin_str == null)
@@ -137,6 +138,7 @@ namespace first_project
                             begin_str = total_str.Substring(0, i+1);
                             total_str = total_str.Remove(0, i+1);
                             i = 0;
+                            j = 1;
 
                         }
 
@@ -147,7 +149,7 @@ namespace first_project
                             begin_str += ch;
                             total_str = total_str.Remove(0, 1);
                             i = 0;
-
+                            j = 1;
                         }
                         
                     }
@@ -159,9 +161,9 @@ namespace first_project
 
             }
 
-            check_str += total_str;
+            check_str = check_str + total_str.ToLower();
 
-            if (begin_str == null)
+            if (j == 1)
             {
 
                 Console.WriteLine($"{check_str} - converted to camelCase");
